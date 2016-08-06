@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLanguageMenuTable extends Migration
+class CreateMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,12 @@ class CreateLanguageMenuTable extends Migration
      */
     public function up()
     {
-        Schema::table('languageMenu', function (Blueprint $table) {
-            $table->integer('language_id');
-            $table->integer('menu_id');
+        Schema::create('menus', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('category_id')->index();
+            $table->string('position');
+            $table->string('label');
+            $table->string('url');
             $table->timestamps();
         });
     }
@@ -26,8 +29,6 @@ class CreateLanguageMenuTable extends Migration
      */
     public function down()
     {
-        Schema::table('languageMenu', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('menus');
     }
 }
